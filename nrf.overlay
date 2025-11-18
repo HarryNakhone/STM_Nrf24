@@ -1,0 +1,26 @@
+/ {
+    nrf24_pins {
+        compatible = "gpio-keys";
+        ce_pin: ce_pin {
+            gpios = <&gpiob 6 GPIO_ACTIVE_HIGH>;
+            label = "CE";
+        };
+    };
+};
+
+&spi2{
+
+    status = "okay";
+    pinctrl-0 = <&spi2_nss_pb12 &spi2_sck_pb13 &spi2_miso_pb14 &spi2_mosi_pb15>;
+    pinctrl-names = "default";
+    cs-gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;
+
+    nrf24: nrf24@0{
+        compatible = "vnd,spi-device";
+        reg= <0>;
+        label = "NRF";
+        spi-max-frequency = <500000>;       
+        spi-cpol;                            
+        spi-cpha; 
+    };
+};
